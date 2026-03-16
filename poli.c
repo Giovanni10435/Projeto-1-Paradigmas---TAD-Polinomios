@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "poli.h"
 
 polinomio * poli_create(int grau){
-    // Implemente aqui a solucao para operacao create
+    // Implementado aqui a solucao para operacao create
 
     polinomio *p = malloc(sizeof(polinomio));
     if(p == NULL) return NULL;
@@ -64,13 +65,56 @@ int poli_get_termo(polinomio *p, int exp, int *coef){
 }
 
 int calcula_px(polinomio *p, int x){
-    // TODO: Implemente aqui a solucao para operacao calcula o valor de P(x)     
+    // Implementado aqui a solucao para operacao calcula o valor de P(x)
+    
+    int calc = 0;
+    for (int i = p->grau; i >= 0; i--) {
+        int pot = 1;
+            if (p->coeficientes[i] != 0) {
+                for (int j = 0; j < i; j++) { // Apenas para calcular a potência (Evitando usar biblioteca math, sem uso no gcc)
+                pot *= x;
+            }
+            calc += p->coeficientes[i] * pot;
+        }
+    }
+
+    return calc;
     
     return 0;
 }
 
 polinomio * poli_soma(polinomio *p, polinomio *q){
-    // TODO: Implemente aqui a solucao para operacao que soma dois polinomios e gera um terceiro
+    // Implementado aqui a solucao para operacao que soma dois polinomios e gera um terceiro
+
+    int grau_max;
+
+    // Definindo tamanho do plonimio 3
+    if (p->grau >= q->grau) {
+        grau_max = p->grau;
+    } else {
+        grau_max = q->grau;
+    }
+
+    // Cria o polinomio 3
+    polinomio *p3 = poli_create(grau_max);
+
+    // Passa por cada coeficiente fazendo a soma
+    for (int i = grau_max; i >= 0; i--) {
+        int coef_p = 0;
+        int coef_q = 0;
+
+        if (i <= p->grau) {
+            coef_p = p->coeficientes[i];
+        }
+
+        if (i <= q->grau) {
+            coef_q = q->coeficientes[i];
+        }
+
+        p3->coeficientes[i] = coef_p + coef_q; // Realiza a soma
+    }
+
+    return p3;
 
     return NULL;
 }
