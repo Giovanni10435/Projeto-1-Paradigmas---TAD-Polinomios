@@ -4,8 +4,8 @@
 typedef struct{
     int *coeficientes;
     int grau; // testar se o termo do grau foi inserido corretamente.
-    int termos; // conta quantidade de termos que nao sao igua a zero =>  5x^2 + 0x^1 + 3 => 2 termos.
-}polinomio;
+    int termos; // conta quantidade de termos que nao sao igual a zero =>  5x^2 + 0x^1 + 3 => 2 termos.
+} polinomio;
 
 polinomio *poli_create(int grau);
 void poli_destroy(polinomio **p); 
