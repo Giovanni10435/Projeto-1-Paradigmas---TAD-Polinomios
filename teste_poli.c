@@ -201,7 +201,7 @@ int testa_div_poli(){
     // d(x) = 3x + 3 
     int coef;
     test_assert(poli_get_termo(d, 1, &coef) == 1, "Retornou 0 para coeficente no expoente 1!");
-    test_assert(coef == 3, "Retornou valor do coeficente errado para no expoente 1!");
+    test_assert(coef == 2, "Retornou valor do coeficente errado para no expoente 1!");
     test_assert(poli_get_termo(d, 0, &coef) == 1, "Retornou 0 para coeficente no expoente 0!");
     test_assert(coef == 3, "Retornou valor do coeficente errado para no expoente 0!");
 

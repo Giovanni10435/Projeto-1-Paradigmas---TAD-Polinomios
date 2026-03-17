@@ -121,14 +121,88 @@ polinomio * poli_soma(polinomio *p, polinomio *q){
 
 polinomio * poli_mult(polinomio *p, polinomio *q){
     // TODO: Implemente aqui a solucao para operacao que multiplica dois polinomios e gera um terceiro
+    int grau_resultado_mult = p -> grau + q -> grau;
+    int coef_resultado_mult;
+    polinomio *r;
 
-    return NULL;
+    r = poli_create(grau_resultado_mult);
+    if(r == NULL) return NULL;
+
+    for(int i = 0; i <= p -> grau; i++){
+        for(int j = 0; j <= q -> grau; j++){
+            coef_resultado_mult = p -> coeficientes[i] * q -> coeficientes[j];
+
+            int pr = r -> coeficientes[i + j];
+
+            r -> coeficientes[i + j] += coef_resultado_mult;
+
+            int dp = r -> coeficientes[i + j];
+
+            if(pr == 0 && dp != 0) r -> termos++;
+            if(pr != 0 && dp == 0) r -> termos--;
+        }
+    }
+
+    return r;
 }
 
 polinomio * poli_div(polinomio *p, polinomio *q){
     // TODO: Implemente aqui a solucao para operacao que divide dois polinomios e gera um terceiro
+    polinomio *r;
+    int coef_resposta;
+    int exp;
+    int coef_lider_resto;
+    int coef_lider_q;
 
-    return NULL;
+    if(p == NULL || q == NULL) return NULL;             // Valida P e Q (não nulos)
+    if(q -> termos == 0) return NULL;                   // Erro conceitual --> Divisão Inválida
+    if(p -> grau < q -> grau){
+        r = poli_create(0);                             // Retorna um polinômio zerado --> Indivisível
+        return r;
+    }
+    int grau_resultado_div = (p -> grau) - (q -> grau); // Calcula o grau do resultado da divisao
+
+    r = poli_create(grau_resultado_div);                // Cria o polinômio com grau calculado
+    if(r == NULL) return NULL;                          // Se estiver vazio, retorna erro
+    r -> termos = 0;
+    
+    for(int B = 0; B <= grau_resultado_div; B++){
+        r -> coeficientes[B] = 0;
+    }
+    
+    int grau_resto = p -> grau;                         // Cria o grau do resto
+    polinomio *resto = poli_create(p -> grau);          // Cria o polinômio resto (cópia do original P)
+    if(resto == NULL) return NULL;
+
+    for(int i = p -> grau; i >= 0; i--){
+        resto -> coeficientes[i] = p -> coeficientes[i];
+    }
+    resto -> termos = p -> termos;
+
+
+    while(grau_resto >= q -> grau) {
+        coef_lider_resto = resto -> coeficientes[grau_resto];       // Calcula o maior coeficiente possível (RESTO)
+        coef_lider_q = q -> coeficientes[q -> grau];    // Calcula o maior coeficiente possivel (Q(x))
+
+        if(coef_lider_q == 0) return NULL;
+        coef_resposta = (coef_lider_resto / coef_lider_q);         // Calcula o coeficiente para o resultado
+        exp = grau_resto - (q -> grau);                 // Calcula o expoente para cada coeficiente
+
+        int pr = r->coeficientes[exp];               // Armazena o valor antes
+
+        
+        r -> coeficientes[exp] += coef_resposta;
+        
+        if (pr == 0 && r->coeficientes[exp] != 0) r->termos++;
+        
+        for(int i = 0; i <= q -> grau; i++){
+            int aux = i + exp;
+            resto -> coeficientes[aux] -= (coef_resposta * q -> coeficientes[i]);
+        }
+        
+        while (grau_resto >= 0 && resto->coeficientes[grau_resto] == 0) grau_resto--;
+    }
+    
+    poli_destroy(&resto);
+    return r;
 }
-
-
