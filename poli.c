@@ -3,6 +3,12 @@
 #include <math.h>
 #include "poli.h"
 
+// ---------- INTEGRANTES DO GRUPO ----------
+// Giovanni Castro --> RA: 10435745
+// Jõao Vitor Mintz --> RA: 
+// ---------- -------------------- ----------
+
+
 polinomio * poli_create(int grau){
     // Implementado aqui a solucao para operacao create
 
@@ -120,7 +126,7 @@ polinomio * poli_soma(polinomio *p, polinomio *q){
 }
 
 polinomio * poli_mult(polinomio *p, polinomio *q){
-    // TODO: Implemente aqui a solucao para operacao que multiplica dois polinomios e gera um terceiro
+    //Implementado a operacao que multiplica dois polinomios e gera um terceiro
     int grau_resultado_mult = p -> grau + q -> grau;
     int coef_resultado_mult;
     polinomio *r;
@@ -132,11 +138,11 @@ polinomio * poli_mult(polinomio *p, polinomio *q){
         for(int j = 0; j <= q -> grau; j++){
             coef_resultado_mult = p -> coeficientes[i] * q -> coeficientes[j];
 
-            int pr = r -> coeficientes[i + j];
+            int pr = r -> coeficientes[i + j];        // Armazena o valor antes da conta
 
             r -> coeficientes[i + j] += coef_resultado_mult;
 
-            int dp = r -> coeficientes[i + j];
+            int dp = r -> coeficientes[i + j];        // Armazena o valor depois da conta
 
             if(pr == 0 && dp != 0) r -> termos++;
             if(pr != 0 && dp == 0) r -> termos--;
@@ -147,7 +153,7 @@ polinomio * poli_mult(polinomio *p, polinomio *q){
 }
 
 polinomio * poli_div(polinomio *p, polinomio *q){
-    // TODO: Implemente aqui a solucao para operacao que divide dois polinomios e gera um terceiro
+    // Implementado a operacao que divide dois polinomios e gera um terceiro
     polinomio *r;
     int coef_resposta;
     int exp;
