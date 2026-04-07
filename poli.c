@@ -5,7 +5,7 @@
 
 // ---------- INTEGRANTES DO GRUPO ----------
 // Giovanni Castro --> RA: 10435745
-// Jõao Vitor Mintz --> RA: 
+// Jõao Vitor Mintz --> RA: 10440421
 // ---------- -------------------- ----------
 
 
